@@ -1,0 +1,67 @@
+body {
+  margin: 0; padding: 0;
+  background: linear-gradient(135deg, #4158d0, #c850c0);
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+nav {
+  position: fixed; top: 0; width: 100%;
+  background: rgba(0, 0, 50, 0.7);
+  z-index: 1000;
+}
+nav ul {
+  margin: 0; padding: 10px;
+  list-style: none; display: flex;
+}
+nav li { margin-right: 20px; }
+nav a {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;   /* 强制斜体 */
+  font-weight: 600; 
+  color: #fff; text-decoration: none;
+  padding: 5px 10px; transition: background 0.3s;
+}
+nav a:hover { background: rgba(255, 255, 255, 0.2); }
+header, section {
+  margin: 80px 20px 20px 20px; /* 顶部预留导航高度 */
+}
+
+/* 卡片效果 */
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px; margin: 10px 0;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Live2D 看板娘 */
+canvas {
+  position: fixed; bottom: 0; right: 0;
+  pointer-events: none; opacity: 0.8;
+}
+
+/* 音乐按钮 */
+#audioBtn {
+  position: fixed; bottom: 20px; left: 20px;
+  padding: 5px 10px; border: none;
+  background: rgba(0,0,0,0.5); color: #fff;
+  border-radius: 4px; cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s;
+}
+#audioBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+/* 页面淡入动画 */
+body {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
