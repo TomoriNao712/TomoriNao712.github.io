@@ -3,6 +3,11 @@
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
+  <style>
+    p {
+       text-align: center;
+    }
+  </style>
   <title>About me - TomoriNao's Weblog</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script>
@@ -24,9 +29,32 @@
 <p> 在此尝试建立一个从学习笔记到生活碎片的连续映射，欢迎来到我的邻域！</p>
   </section>
 
+<section id="comments" style="margin-top: 50px;">
+  <h2 style="color:#c3b8ff; text-align:center;">💬 留言板</h2>
+  <div class="giscus"></div>
+  <script src="https://giscus.app/client.js"
+        data-repo="TomoriNao712/TomoriNao712.github.io"
+        data-repo-id="R_kgDOPhHe2A"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOPhHe2M4Cuakx"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+  </script>
+</section>
+
   <audio id="bgm" src="music.mp3" loop autoplay muted></audio>
   <button id="audioBtn">播放音乐</button>
 
   <script src="script.js"></script>
+
+
+
 </body>
 </html>
