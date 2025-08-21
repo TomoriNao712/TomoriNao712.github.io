@@ -131,3 +131,24 @@ mjx-container[jax="CHTML"] {
   font-size: 1.6rem;
   margin-bottom: 20px;
 }
+
+
+#playBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, white);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+  z-index: 9999;
+}
+#playBtn:hover {
+  transform: scale(1.1);
+}
