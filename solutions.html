@@ -34,12 +34,681 @@
     </div>
     <div class="card">
       <h3>题目 2</h3>
+      <p>题目：设 \(A,B \in O(n) \)为实正交矩阵，且 \(\det(A)\det(B)=1\)，证明：
+\[
+n-\mathrm{rank}(A+B)\ \text{是偶数}.
+\]</p>
       <details>
         <summary>展开解答</summary>
-        <p>这是另一个解答……</p>
+        <p>1. 首先考虑矩阵
+\[
+C = A^TB.
+\]
+由于 \(A,B\) 都是正交矩阵，因此 \(C\) 也是正交矩阵，并且
+\[
+\det(C) = \det(A^TB) = \det(A^T)\det(B) = \det(A)\det(B) = 1,
+\]
+所以 \(C \in SO(n)\)。
+
+2. 注意到
+\[
+(A+B)x=0 \quad \Longleftrightarrow \quad Ax=-Bx.
+\]
+两边左乘 \(A^T\)，得到
+\[
+x = -A^TBx = -Cx,
+\]
+即
+\[
+Cx=-x.
+\]
+因此
+\[
+\ker(A+B) = \ker(I+C).
+\]
+于是
+\[
+n-\mathrm{rank}(A+B) = \dim\ker(A+B) = \dim\ker(I+C).
+\]
+
+3. 由于 \(C\in SO(n)\)，它的特征值位于单位圆上，并且非实特征值必成共轭对。对于实特征值，只可能是 \(\pm 1\)。设 \(-1\) 的代数重数为 \(m\)，则
+\[
+\det(C) = \prod_{i=1}^n \lambda_i = (-1)^m.
+\]
+因为 \(\det(C)=1\)，所以 \(m\) 必为偶数。
+
+4. 因此 \(-1\) 的几何重数，即
+\[
+\dim\ker(I+C),
+\]
+必为偶数。
+
+综上所述，
+\[
+n-\mathrm{rank}(A+B)=\dim\ker(I+C)\equiv 0 \pmod{2},
+\]
+证毕。
+</p>
       </details>
     </div>
+
+  <div class="card">
+      <h3>题目 3</h3>
+      <p>设 \(A\in M_n(\mathbb C)\) 且 \(A\) 只有一个特征值 \(\lambda\)。证明：对任意 \(\varepsilon>0\)，存在矩阵 \(B\) 满足 \(\|B-A\|<\varepsilon\) 且 \(B\) 与单个 \(n\times n\) 的 Jordan 块 \(J_n(\lambda)\) 相似（即 \(B=P\,J_n(\lambda)\,P^{-1}\)）。
+      </p>
+      <details>
+        <summary>展开解答</summary>
+        <p>
+         等价地（把 \(\lambda I\) 消去），令 \(N:=A-\lambda I\)。则 \(N\) 是幂零矩阵（所有特征值为 0）。需证明：对任意 \(\varepsilon>0\) 存在 \(B\) 使得 \(\|B-N\|<\varepsilon\) 且 \(B\) 与单个 nilpotent Jordan 块 \(J_n(0)\) 相似。随后再加回 \(\lambda I\)。
+        </p>
+ <p>关键事实（直观）<br>
+幂零矩阵的 Jordan 型对应一个分拆（partition） \(n=k_1+\cdots +k_m\)（各 \(k_i\) 是 Jordan 块大小）。我们要说明：**单一的最大 Jordan 块（regular nilpotent，即 \(J_n(0)\)）的共轭类在幂零锥中是稠密的**。构造性的方式是：用对角缩放把 \(J_n(0)\) 的若干超对角 1 缩小成 0，从而在极限得到任何给定的块状形态；反过来，对于任意给定的 \(N\)，我们可以把 \(J_n(0)\) 的某些 1 通过合适的共轭缩放在极限中“变成” \(N\) 的形状。因此 \(N\) 属于 \(J_n(0)\) 共轭类的闭包 —— 于是存在与 \(J_n(0)\) 相似的矩阵任意接近 \(N\)。
+</p>
+<p>具体构造与证明<br>
+1. 把 \(N\) 写成 Jordan 形式。
+   设 \(N\) 的 Jordan 型为分拆 \(n=k_1+\cdots +k_m\)，通过相似变换可写成
+   \[
+   N = \mathrm{diag}\big(J_{k_1}(0),\,J_{k_2}(0),\dots, J_{k_m}(0)\big),
+   \]
+   其中每个 \(J_{k_i}(0)\) 是大小 \(k_i\) 的 nilpotent Jordan 块（对角线为 0，主超对角为 1，其余为 0）。
+<br>
+2. 从单一大块 \(J_n(0)\) 出发，构造共轭缩放矩阵 \(S(t)\)。 
+   把 \(J_n(0)\) 写在标准基 \(e_1,\dots,e_n\) 下，其矩阵仅在 \((i,i+1)\) 处有 1。我们选择一个对角可逆矩阵
+   \[
+   S(t)=\operatorname{diag}\big(t^{b_1},t^{b_2},\dots,t^{b_n}\big),
+   \]
+   并考虑共轭
+   \[
+   M(t):=S(t)\,J_n(0)\,S(t)^{-1}.
+   \]
+   计算可得：在位置 \((i,i+1)\) 的条目会被乘上 \(t^{b_i-b_{i+1}}\)，因此
+   \[
+   M(t)_{i,i+1} = t^{b_i-b_{i+1}}.
+   \]
+
+3. 选择指数 \(b_i\) 使得当 \(t\to 0\) 时 \(M(t)\) 的极限恰好等于 \(N\)。  
+   我们要让在每个原来属于同一 Jordan 块的相邻位置 \((i,i+1)\) 保持 1（即指数差为 0），而在跨块的相邻位置让该超对角项趋于 0（即指数差为正数）。具体做法：按 \(N\) 的 Jordan 块把索引分段，比如第一块占位置 \(1,\dots,k_1\)，第二块占 \(k_1+1,\dots,k_1+k_2\)，以此类推。令
+   \[
+   b_1=\cdots=b_{k_1}=0,\quad
+   b_{k_1+1}=\cdots=b_{k_1+k_2}=1,\quad
+   b_{k_1+k_2+1}=\cdots=2,\ \dots
+   \]
+   也就是把不同 Jordan 块对应的 \(b_i\) 取不同的常数（严格递增）。那么在块内差为 0，得到 1；跨块时差为正，得到 \(t^{\text{正数}}\)，极限为 0。因此
+   \[
+   \lim_{t\to 0} M(t) = \mathrm{diag}\big(J_{k_1}(0),\dots,J_{k_m}(0)\big) = N.
+   \]
+
+4. 结论：\(N\) 在 \(J_n(0)\) 的共轭类的闭包中。  
+   上述构造显示存在一族可逆矩阵 \(S(t)\) 使得
+   \[
+   \lim_{t\to 0} S(t)^{-1} J_n(0) S(t) = N.
+   \]
+   因此给定任意 \(\varepsilon>0\)，取 \(t\) 足够小就有 \(\|S(t)^{-1} J_n(0) S(t) - N\|<\varepsilon\)。换言之，存在矩阵 \(B':=S(t)^{-1} J_n(0) S(t)\)（它与 \(J_n(0)\) 相似）任意接近 \(N\)。
+
+5. 回到原来的 \(A\)。  
+   令 \(B:=B'+\lambda I\)。则 \(B\) 与 \(J_n(\lambda)\) 相似，并且
+   \[
+   \|B-A\|=\|B'-N\|<\varepsilon.
+   \]
+</p>
+<p>
+关键在于 regular nilpotent（单一大块）的共轭轨道是幂零锥中一个开放的稠密位置，其轨道闭包包含所有其它 Jordan 型。对角缩放构造是常见的“分层缩放”技巧，用以在极限中把矩阵的某些非零元抹去或保留。该结论反映了 Jordan 型对小扰动的高度不稳定性：如果 \(A\) 只有一个特征值，那么任意小扰动都可能把 Jordan 型连成一条链，也可能把它拆分成更多小块。  
+具体演算中注意对 \(S(t)\) 的取法（是否用 \(S(t)J S(t)^{-1}\) 或反过来），只要保持指数差号方向一致，就能得到所需极限。
+</p>
+      </details>
+    </div>
+
+
+  <div class="card">
+      <h3>题目 4</h3>
+      <p>
+        设矩阵 \(A,B\) 满足
+\[
+A^2+B^2=2AB,
+\]
+证明：\(A,B\) 有相同的特征多项式。
+
+      </p>
+      <details>
+        <summary>展开解答</summary>
+        <p>
+          令 \(N=A-B\)。由条件
+\[
+A^2+B^2=2AB
+\]
+可得
+\[
+A^2-AB-BA+B^2 = AB-BA,
+\]
+即
+\[
+N^2 = [A,B] = [N,B],
+\]
+其中 \([X,Y]=XY-YX\) 表示对易子。于是
+\[
+N^2 = [N,B].
+\]
+
+注意到
+\[
+[N,[N,B]] = [N,N^2] = N\,N^2 - N^2\,N = N^3 - N^3 = 0,
+\]
+即 \([N,[N,B]]=0\)。根据 Jacobson 引理，在复数域上的矩阵代数中，若 \([N,[N,B]]=0\)，则 \([N,B]\) 必为幂零矩阵。于是 \(N^2=[N,B]\) 幂零，从而 \(N\) 也是幂零的。
+
+因此 \(N\) 是幂零矩阵。设 \(\ker N\) 的维数为 \(k\)。对任意 \(v\in\ker N\)，有
+\[
+N(Bv) = [N,B]v = N^2 v = 0,
+\]
+所以 \(Bv \in \ker N\)。即 \(\ker N\) 在 \(B\) 下不变。由此可选基底，使得 \(N\) 与 \(B\) 同时呈上三角块形式。递归进行，得到完全的同时上三角化。
+
+在这种基底下，\(N\) 的对角元全为 \(0\)，而
+\[
+A = B+N
+\]
+的对角元与 \(B\) 的对角元相同。因此 \(A\) 与 \(B\) 具有相同的特征值，且代数重数相同。于是它们有相同的特征多项式：
+\[
+\chi_A(\lambda)=\chi_B(\lambda).
+\]
+
+        </p>
+      </details>
+    </div>
+
+
+<div class="card">
+      <h3>题目 4</h3>
+      <p>同上</p>
+      <details>
+        <summary>展开解答</summary>
+        <p>
+          不妨记矩阵 \(A,B\) 所对应的线性变换为 \(A(x)=Ax,\ B(x)=Bx\)。欲证明它们的特征多项式相同，即证明 \(A,B\) 每个特征值相同，且其代数重数也相同。
+
+我们知道，线性变换 \(f\) 的一个特征值 \(\lambda\) 的代数重数正是其根子空间维数，即
+\[
+\lambda\ \text{的代数重数} = \dim W_\lambda(f) = \dim \left( \bigcup_{n=1}^\infty \ker(f-\lambda I)^n \right).
+\]
+
+（上式中 \(f\) 表示某个线性变换，\(I\) 为恒等变换）
+
+我们的证明将从这一点入手。
+
+我们先证明，对线性变换 \(B\) 的一个特征值 \(\lambda\)，有：
+\[
+W_\lambda(B) \subseteq W_\lambda(A).
+\]
+
+任取一个元素 \(\alpha \in W_\lambda(B)\)，则存在 \(s \in \mathbb{N}_+\) 使得
+\[
+(B-\lambda I)^s(\alpha)=0,\quad (B-\lambda I)^{s-1}(\alpha)\neq 0.
+\]
+
+记 \(\alpha_1=\alpha,\ \alpha_{i+1}=(B-\lambda I)(\alpha_i)\)，那么有
+\[
+\alpha_s \neq 0,\quad (B-\lambda I)(\alpha_s)=0.
+\]
+
+即
+\[
+B\alpha_i=\lambda\alpha_i+\alpha_{i+1},\quad B\alpha_s=\lambda\alpha_s.
+\]
+
+从而将题中左右两端看作线性变换，同时作用于 \(\alpha_i\)：
+\[
+A^2\alpha_i+B^2\alpha_i=2AB\alpha_i.
+\]
+由此得到
+\[
+A^2\alpha_i+B(\lambda\alpha_i+\alpha_{i+1})=2A(\lambda\alpha_i+\alpha_{i+1}),
+\]
+\[
+A^2\alpha_i+\lambda^2\alpha_i+\lambda\alpha_{i+1}+\alpha_{i+2}=2\lambda A\alpha_i+2A\alpha_{i+1},
+\]
+\[
+(A-\lambda I)^2\alpha_i+2(A-\lambda I)\alpha_{i+1}+\alpha_{i+2}=0.
+\]
+
+对于 \(i=s\)，毫无疑问有
+\[
+(A-\lambda I)^2\alpha_s=0.
+\]
+
+对于 \(i=s-1\)，在右端再施加一次变换 \(A-\lambda I\)，有
+\[
+(A-\lambda I)^3\alpha_{s-1}=0.
+\]
+
+事实上可以像这样逐步施加变换 \(A-\lambda I\)，归纳地得到：
+\[
+(A-\lambda I)^{s-i+2}\alpha_i=0.
+\]
+
+这说明 \(\alpha_i \in W_\lambda(A)\)，特别地对于 \(i=1\)，有 \(\alpha_1=\alpha\in W_\lambda(A)\)。
+
+注意 \(\alpha\) 是 \(W_\lambda(B)\) 中任意选取的元素，于是有
+\[
+W_\lambda(B) \subseteq W_\lambda(A).
+\]
+
+        </p>
+      </details>
+    </div>
+
+<div class="card">
+  <h3>题目 5</h3>
+  <p>题目：令 \(A\) 为对称的 \(n\times n\) 实矩阵，且假设 \(A\) 半正定。  
+
+(a) 证明对于任意 \(x\in\mathbb{R}^n\)，有不等式  
+\(\|(I-A)(I+A)^{-1}x\|\le\|x\|\)。  
+
+(b) 证明 \(x\in\ker(A)\) 当且仅当 \((I-A)(I+A)^{-1}x=x\)。 </p>
+  <details>
+    <summary>展开解答</summary>
+    <p>
+      由于 \(A\) 对称且半正定，存在正交矩阵 \(Q\)，使得  
+\(Q^{T}AQ=D=\operatorname{diag}(\lambda_1,\dots,\lambda_n)\)，其中每个特征值 \(\lambda_i\ge0\)。  
+因此 \(I+A\) 正定，从而 \((I+A)^{-1}\) 存在。定义算子  
+\(T=(I-A)(I+A)^{-1}\)。通过相似变换，有  
+\(Q^{T}TQ=(I-D)(I+D)^{-1}=\operatorname{diag}\Big(\frac{1-\lambda_1}{1+\lambda_1},\dots,\frac{1-\lambda_n}{1+\lambda_n}\Big)\)。  
+
+(a) 令 \(y=Q^{T}x\)。因为正交变换保持欧几里得范数，  
+\(\|Tx\|=\|Q^{T}TQ\,y\|=\Big(\sum_{i=1}^n\Big(\frac{1-\lambda_i}{1+\lambda_i}\Big)^2 y_i^2\Big)^{1/2}\)。  
+对任意 \(\lambda_i\ge0\)，有 \(\Big|\frac{1-\lambda_i}{1+\lambda_i}\Big|\le1\)，  
+于是 \(\|Tx\|^2=\sum_{i=1}^n\Big(\frac{1-\lambda_i}{1+\lambda_i}\Big)^2 y_i^2 \le \sum_{i=1}^n y_i^2=\|y\|^2=\|x\|^2\)。  
+取平方根即得 \(\|Tx\|\le\|x\|\)。  
+
+(b) 仍记 \(y=Q^{T}x\)。由对角形式，\(Tx=x\) 等价于  
+\(\frac{1-\lambda_i}{1+\lambda_i}y_i=y_i\)，即  
+\(\Big(\frac{1-\lambda_i}{1+\lambda_i}-1\Big)y_i=-\frac{2\lambda_i}{1+\lambda_i}y_i=0\)。  
+因为 \(\frac{2\lambda_i}{1+\lambda_i}=0\) 当且仅当 \(\lambda_i=0\)，所以若 \(y_i\ne0\)，必须有 \(\lambda_i=0\)。  
+这说明 \(Tx=x\) 当且仅当 \(x\) 仅由 \(\lambda_i=0\) 的特征向量组合而成，即 \(x\in\ker(A)\)。  
+反过来若 \(x\in\ker(A)\)，则对所有 \(\lambda_i=0\) 的分量，\(\frac{1-\lambda_i}{1+\lambda_i}=1\)，从而 \(Tx=x\)。  
+因此 \(x\in\ker(A)\iff (I-A)(I+A)^{-1}x=x\)。  
+    </p>
+  </details>
+</div>
+
+
+<div class="card">
+  <h3>题目 6</h3>
+  <p>Problem 8: Suppose that \(A\) and \(B\) are \(5\times 5\) complex matrices that share the same eigenvectors. Prove that if the characteristic polynomial of \(A\) is \(x^5\) and the minimal polynomial of \(B\) is \((x-1)^2\), then \(A^3=0\).
+</p>
+  <details>
+    <summary>展开解答</summary>
+    <p>显然，\(A\)是幂零矩阵，为证\(A^3=0\),仅需说明\(A\)的\(Jordan\)块阶数不超过4。由
+      \(B\)的极小可知，\(B\)至少有三个\(Jordan\)块，故至少有3个特征向量，由\(A，B\)特征向量相同，
+      \(A\)至少有3个\(Jordan\)块，结合阶数为5，立刻有\(A\)的\(Jordan\)阶数至多为3，命题得证。</p>
+  </details>
+</div>
+
+<div class="card">
+  <h3>小结论</h3>
+  <p>\(Hilbert \quad and \quad Gram \quad matric\)</p>
+  <details>
+    <summary>展开解答</summary>
+    <p>Prop1：Hilbert 矩阵 \(H_n=\left(\frac{1}{i+j-1}\right)_{1\le i,j \le n}\) 是对称正定矩阵。  
+
+证明：定义函数族 \(f_i(t)=t^{\,i-1},\ t\in[0,1],\ i=1,\dots,n\)。在区间 \([0,1]\) 上的内积为  
+\(\langle f_i,f_j\rangle=\int_0^1 f_i(t)f_j(t)\,dt=\int_0^1 t^{i+j-2}\,dt=\frac{1}{i+j-1}\)。  
+因此有 \(H_n=(\langle f_i,f_j\rangle)_{i,j=1}^n\)，即 \(H_n\) 是由函数族 \(\{f_i\}\) 在 \(L^2([0,1])\) 中生成的 Gram 矩阵。  
+
+Gram 矩阵的性质：若给定向量族 \(v_1,\dots,v_n\)，则矩阵 \(G=(\langle v_i,v_j\rangle)\) 称为 Gram 矩阵。Gram 矩阵总是对称半正定；当 \(\{v_i\}\) 线性无关时，Gram 矩阵严格正定。  
+
+由于 \(\{f_1,\dots,f_n\}\) 在 \([0,1]\) 上线性无关，故 Hilbert 矩阵 \(H_n\) 是严格正定的。  
+</p>
+  <p>
+    Prop2：Gram 矩阵 \(G=(\langle v_i,v_j\rangle)_{i,j=1}^n\) 总是半正定的；若 \(\{v_1,\dots,v_n\}\) 线性无关，则 \(G\) 严格正定。  
+
+证明：对任意向量 \(c=(c_1,\dots,c_n)^T \in \mathbb{C}^n\)，有  
+\(c^*Gc=\sum_{i=1}^n\sum_{j=1}^n \overline{c_i}c_j \langle v_i,v_j\rangle\)。  
+将求和次序改变得  
+\(c^*Gc=\Big\langle \sum_{i=1}^n c_i v_i,\ \sum_{j=1}^n c_j v_j\Big\rangle=\Big\|\sum_{i=1}^n c_i v_i\Big\|^2\)。  
+因此 \(c^*Gc\ge0\)，这说明 \(G\) 半正定。  
+
+进一步，若 \(\{v_1,\dots,v_n\}\) 线性无关，则只有当 \(c=0\) 时才有 \(\sum_{i=1}^n c_i v_i=0\)。于是对所有非零 \(c\)，有 \(\Big\|\sum_{i=1}^n c_i v_i\Big\|^2>0\)，即 \(c^*Gc>0\)。因此在此条件下 \(G\) 严格正定。  
+
+反之，若存在非零系数 \(c\) 使得 \(\sum_{i=1}^n c_i v_i=0\)，则取该 \(c\) 有 \(c^*Gc=0\)，说明 \(G\) 不可能严格正定。故 Gram 矩阵严格正定当且仅当 \(\{v_1,\dots,v_n\}\) 线性无关。  
+
+  </p>
+  </details>
+</div>
+
+<div class="card">
+  <h3>题目 7</h3>
+  <p>Let \(U,V,W\) be finite-dimensional inner product spaces and let \(A:U\to V\) and \(B:V\to W\) be linear functions such that \(\operatorname{im}(A)=\ker(B)\). Show that the operator \(AA^*+B^*B\) on \(V\) is invertible.  </p>
+  <details>
+    <summary>展开解答</summary>
+    <p> Note that \(AA^*+B^*B\) is self-adjoint because \((AA^*)^*=AA^*\) and \((B^*B)^*=B^*B\). For any \(v\in V\),  
+\(\langle (AA^*+B^*B)v,v\rangle=\langle AA^*v,v\rangle+\langle B^*Bv,v\rangle=\|A^*v\|^2+\|Bv\|^2\ge 0\).  
+Hence the operator is positive semidefinite.  
+
+If \(\langle (AA^*+B^*B)v,v\rangle=0\), then both \(\|A^*v\|=0\) and \(\|Bv\|=0\). Thus \(A^*v=0\) and \(Bv=0\). Since \(\ker(A^*)=(\operatorname{im}A)^\perp\) and \(\operatorname{im}(A)=\ker(B)\), it follows that  
+\(v\in(\ker B)^\perp\) and \(v\in\ker B\).  
+Therefore \(v\in \ker B\cap(\ker B)^\perp=\{0\}\).  
+
+This shows that \(\langle (AA^*+B^*B)v,v\rangle>0\) for all \(v\ne 0\). Hence the operator is strictly positive definite. A strictly positive definite operator is injective, and in finite-dimensional spaces injectivity implies surjectivity. Thus \(AA^*+B^*B\) is invertible on \(V\).</p>
+  </details>
+</div>
+
+
+<div class="card">
+  <h3>题目 8</h3>
+  <p>Let A be a non-singular \(n × n\) complex matrix. Show that there
+ exists a non-singular \(n×n\) complex matrix \(B\) for which \( B^2=A\)</p>
+  <details>
+    <summary>展开解答</summary>
+    <p>设 \(A \in GL_n(\mathbb C)\)。在复数域上任意矩阵都可以作 Jordan 约化，存在可逆矩阵 \(P\) 使得  
+\(A = PJP^{-1}\)，  
+其中 \(J\) 为 \(A\) 的 Jordan 标准形，是若干 Jordan 块的直和：  
+\(J = \operatorname{diag}(J_{k_1}(\lambda_1), J_{k_2}(\lambda_2), \dots)\)。  
+
+由于 \(A\) 可逆，所有特征值 \(\lambda_i \neq 0\)。因此只需对每个 Jordan 块分别构造平方根。考虑大小为 \(k\) 的 Jordan 块  
+\(J_k(\lambda) = \begin{pmatrix} \lambda & 1 & 0 & \cdots \\ 0 & \lambda & 1 & \cdots \\ \vdots & & \ddots & \ddots \\ 0 & \cdots & 0 & \lambda \end{pmatrix} = \lambda(I_k+N)\)，  
+其中 \(N\) 为上移位的幂零矩阵，且 \(N^k=0\)。  
+
+在复数域上可以选取 \(\mu\) 为 \(\lambda\) 的一个平方根（存在且 \(\mu \neq 0\)）。定义  
+\(S = (I_k+N)^{1/2} := \sum_{j=0}^{k-1} \binom{1/2}{j} N^j\)。  
+
+由于 \(N^k=0\)，上式是有限和，良好定义。计算可得  
+\(S^2 = I_k+N\)。  
+
+于是定义  
+\(B_k = \mu S\)，  
+则  
+\(B_k^2 = \mu^2 S^2 = \lambda(I_k+N) = J_k(\lambda)\)，  
+且 \(B_k\) 可逆。  
+
+对所有 Jordan 块这样构造得到块对角矩阵 \(\widetilde B = \operatorname{diag}(B_k)\)，再令  
+\(B = P \widetilde B P^{-1}\)。  
+
+则 \(B\) 可逆且满足  
+\(B^2 = A\)。  
+</p>
+
+<p>
+  我们希望证明：如果 \(A\) 是一个可逆的 \(n\times n\) 复矩阵，那么存在一个矩阵 \(B\) 使得  
+\(B^2 = A\)。  
+
+方法二的思路是利用矩阵对数与矩阵指数。对于复数 \(a\neq 0\)，有表示  
+\(\sqrt{a} = e^{\tfrac{1}{2}\log a}\)。  
+类比可得，如果能定义矩阵的对数与指数，就能写出  
+\(B = \exp\!\left(\tfrac{1}{2}\log A\right)\)。  
+
+1. 矩阵指数 \(\exp(A)\)：  
+定义为幂级数  
+\(\exp(A) = I + A + \tfrac{A^2}{2!} + \tfrac{A^3}{3!} + \cdots\)。  
+这个级数在矩阵上收敛良好。性质：\(\exp(A)\) 始终可逆，且 \((\exp(A))^{-1} = \exp(-A)\)。  
+特别地，若 \(A = \operatorname{diag}(\lambda_1,\dots,\lambda_n)\)，则  
+\(\exp(A) = \operatorname{diag}(e^{\lambda_1},\dots,e^{\lambda_n})\)。  
+
+2. 矩阵对数 \(\log(A)\)：  
+希望找到 \(X\) 使得 \(\exp(X) = A\)。若 \(A\) 可对角化：  
+\(A = P \operatorname{diag}(\lambda_1,\dots,\lambda_n) P^{-1}\)，  
+则取  
+\(\log(A) = P \operatorname{diag}(\log \lambda_1,\dots,\log \lambda_n) P^{-1}\)，  
+其中 \(\log \lambda_i\) 为复数的一个对数分支。  
+在一般 Jordan 形式下，可将 Jordan 块写成 \(\lambda(I+N)\)，其中 \(N\) 幂零，再用幂级数  
+\(\log(I+N) = \sum_{j=1}^{k-1} (-1)^{j+1} \tfrac{N^j}{j}\)  
+来定义。由此可得结论：任意可逆矩阵都有矩阵对数（不唯一）。  
+
+3. 函数演算思想：  
+若 \(f(z)\) 在某区域解析，而矩阵 \(A\) 的特征值都在该区域内，则可以定义 \(f(A)\)。  
+对角化时，取 \(f(A) = P \operatorname{diag}(f(\lambda_1),\dots,f(\lambda_n)) P^{-1}\)。  
+Jordan 块时，用幂级数在块上展开。这样可以定义 \(\log(A)\)、\(\sqrt{A}\)、\(\sin(A)\) 等矩阵函数。  
+
+4. 应用到平方根：  
+若 \(A\) 可逆，取其对数 \(\log A\)。定义  
+\(B = \exp\!\left(\tfrac{1}{2}\log A\right)\)。  
+于是  
+\(B^2 = \exp(\log A) = A\)。  
+由于矩阵指数总是可逆，故 \(B\) 也是可逆矩阵。  
+
+综上，方法二给出了一种通过矩阵对数和指数来构造平方根的途径，与方法一的代数构造互为补充。
+
+</p>
+  </details>
+</div>
+
+<div class="card">
+  <h3>题目 9</h3>
+  <p>Let \(V\) be a finite-dimensional vector space. Let \(f_1,\dots,f_k\) 
+    be linear functionals on \(V\) with nullspaces \(N_1,\dots,N_k\), 
+    respectively. Show that a linear functional \(g\) on \(V\) is a linear
+     combination of \(f_1,\dots,f_k\) if and only if the nullspace of \(g\) 
+     contains \(N_1\cap\cdots\cap N_k\).  </p>
+  <details>
+    <summary>展开解答</summary>
+    <p>
+      若 \(g=\sum_{i=1}^k a_i f_i\)，则对任意 \(x\in N_1\cap\cdots\cap N_k\) 有 \(f_i(x)=0\) 对所有 \(i\) 成立，因此  
+\(g(x)=\sum a_i f_i(x)=0\)。  
+所以必然有 \(N_1\cap\cdots\cap N_k\subseteq \ker g\)。  
+
+反之，假设 \(\ker g\) 包含 \(N_1\cap\cdots\cap N_k\)。定义线性映射  
+\(T:V\to\mathbb C^k,\quad T(x)=(f_1(x),\dots,f_k(x))\)。  
+显然 \(\ker T=N_1\cap\cdots\cap N_k\)。由假设有 \(\ker T\subseteq \ker g\)。于是若 \(T(x)=T(y)\)，则 \(T(x-y)=0\)，从而 \(g(x-y)=0\)，即 \(g(x)=g(y)\)。  
+
+因此在 \(\operatorname{Im}T\) 上可以定义线性泛函 \(\varphi\) 为  
+\(\varphi(T(x))=g(x)\)。  
+这一定义良好且线性。于是 \(g=\varphi\circ T\)。  
+
+注意 \(\operatorname{Im}T\subseteq \mathbb C^k\)。任意定义在子空间上的线性泛函 \(\varphi\) 都可以扩张到整个 \(\mathbb C^k\)。在 \(\mathbb C^k\) 上的任意线性泛函都有形式  
+\(\varphi(y_1,\dots,y_k)=\sum_{i=1}^k a_i y_i\)。  
+因此对任意 \(x\in V\)，  
+\(g(x)=\varphi(T(x))=\sum_{i=1}^k a_i f_i(x)\)。  
+
+即 \(g=\sum_{i=1}^k a_i f_i\)。  
+
+综上，\(g\) 是 \(f_1,\dots,f_k\) 的线性组合，当且仅当 \(\ker g\) 包含 
+\(N_1\cap\cdots\cap N_k\)。证毕。
+</p>
+  </details>
+</div>
+
+<div class="card">
+  <h3>题目 10</h3>
+  <p>Solve the following two problems regarding linear transformations over real vector spaces.  
+
+(i) Find a linear transformation \(f:\mathbb{R}^4\to\mathbb{R}^4\) for which  
+\(\ker(f)=\langle(1,0,1,0)\rangle\) and \(\operatorname{Im}(f^2)=\langle(1,0,1,0),(1,1,1,1)\rangle\).  
+
+(ii) Find all the possible values of \(\dim(\ker(f)\cap\operatorname{Im}(f^2))\) where \(f:\mathbb{R}^4\to\mathbb{R}^4\) is a linear transformation.  
+</p>
+  <details>
+    <summary>展开解答</summary>
+    <p>(i) 我们在标准基下构造一个满足条件的线性变换 \(f:\mathbb{R}^4\to\mathbb{R}^4\)。考虑矩阵  
+\[
+A=\begin{pmatrix}
+0 & 1 & 0 & 0\\
+-1& 0 & 1 & 1\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix}.
+\]  
+由此定义的线性变换 \(f\) 满足：  
+
+- 计算得 \(A(1,0,1,0)^\top=0\)，因此 \((1,0,1,0)\in\ker f\)。又因为 \(\operatorname{rank}(A)=3\)，所以 \(\dim\ker f=1\)，于是  
+\(\ker f=\langle(1,0,1,0)\rangle\)。  
+
+- 计算 \(A^2\)，可得 \(\operatorname{rank}(A^2)=2\)，并且  
+\(\operatorname{Im}(A^2)=\operatorname{span}\{(1,0,1,0),(1,1,1,1)\}\)。  
+因此 \(\operatorname{Im}(f^2)=\langle(1,0,1,0),(1,1,1,1)\rangle\)，与题设一致。  
+
+故此 \(f\) 满足所要求的条件。  
+
+(ii) 一般地，考虑任意线性变换 \(f:\mathbb{R}^4\to\mathbb{R}^4\)。我们分析 \(\dim(\ker f\cap\operatorname{Im}(f^2))\)。  
+
+在 \(f\) 的 Jordan 标准形中，只有对应于特征值 \(0\) 的 Jordan 块会对 \(\ker f\) 有贡献。设某个零特征值的 Jordan 块大小为 \(m\)：  
+- 对应的 \(\ker f\) 包含向量 \(e_1\)。  
+- \(\operatorname{Im}(f^2)\) 的维数为 \(\max(0,m-2)\)。  
+- 当且仅当 \(m\ge 3\) 时，\(\ker f\cap\operatorname{Im}(f^2)\) 非零，此时交集恰好有 \(1\) 维。  
+
+由于总维数为 \(4\)，最大的 Jordan 块大小为 \(4\)，因此最多只有一个大小 \(\ge 3\) 的 Jordan 块。于是  
+\[
+\dim(\ker f\cap\operatorname{Im}(f^2))\le 1.
+\]  
+
+因此可能的取值为 \(\{0,1\}\)。  
+</p>
+  </details>
+</div>
+
+<div class="card">
+  <h3>题目 11</h3>
+  <p>Let \(A\) be an invertible \(n \times n\) matrix with real entries. We wish to consider subspaces \(W\) of \(\mathbb R^n\) with the following property:  
+\[
+v^{T}Aw=0 \quad \text{for all } w,v\in W. \tag{*}
+\]
+
+Here \(v^{T}\) denotes the transpose of the vector \(v\).  
+(a) Show that any such subspace \(W\) satisfies \(\dim(W)\le \tfrac n2\).  
+(b) Show by example that when \(n\) is even, there is an invertible matrix \(A\) and a subspace \(W\) satisfying \((*)\) with \(\dim(W)=\tfrac n2\).  </p>
+  <details>
+    <summary>展开解答</summary>
+    <p>(a) 记标准内积为 \(\langle u,w\rangle=u^{T}w\)。由条件 \((*)\) 可得  
+\[
+v^{T}Aw=0 \iff \langle A^{T}v,w\rangle=0 \quad \text{for all } v,w\in W.
+\]  
+因此 \(A^{T}v\in W^{\perp}\)，即  
+\[
+A^{T}(W)\subseteq W^{\perp}.
+\]  
+因为 \(A^{T}\) 可逆，\(\dim A^{T}(W)=\dim W\)。而 \(\dim W^{\perp}=n-\dim W\)。于是  
+\[
+\dim W\le n-\dim W,
+\]  
+即  
+\[
+\dim W\le \tfrac n2.
+\]  
+
+(b) 设 \(n=2m\)。取  
+\[
+W=\operatorname{span}\{e_1,\dots,e_m\}\subseteq \mathbb R^{2m},
+\]  
+即前 \(m\) 个分量任意，后 \(m\) 个分量为零的子空间，故 \(\dim W=m=n/2\)。再取  
+\[
+A=\begin{pmatrix}0&I_m\\ I_m&0\end{pmatrix},
+\]  
+其中 \(I_m\) 为 \(m\times m\) 单位矩阵。显然 \(A\) 可逆。对 \(v=(v_1,0)^T,\ w=(w_1,0)^T\in W\)，有  
+\[
+Aw=\begin{pmatrix}0\\ w_1\end{pmatrix},
+\]  
+从而  
+\[
+v^{T}Aw=(v_1^{T},0)\begin{pmatrix}0\\ w_1\end{pmatrix}=0.
+\]  
+因此 \((*)\) 成立，且 \(\dim W=n/2\)，达到上界。  </p>
+  </details>
+</div>
+
+
+<div class="card">
+  <h3>题目 12</h3>
+  <p>Let \(V\) be a finite-dimensional vector space over a field \(F\), and let \(V^{*}\) denote its dual (the space of linear maps \(f:V\to F\)). For a subset \(S\subseteq V\), define  
+\[
+S^{\circ}=\{f\in V^{*}: f(v)=0 \text{ for all } v\in S\}.
+\]  
+For a subset \(X\subseteq V^{*}\), define  
+\[
+X^{\circ}=\{v\in V: f(v)=0 \text{ for all } f\in X\}.
+\]  
+Suppose \(W\) is a subspace of \(V\).  
+
+(a) Prove that \((W^{\circ})^{\circ}=W\).  
+(b) Prove that \((V/W)^{*}\) and \(W^{\circ}\) are isomorphic.  
+</p>
+  <details>
+    <summary>展开解答</summary>
+    <p>(a) 若 \(w\in W\)，对任意 \(f\in W^{\circ}\) 有 \(f(w)=0\)，所以 \(w\in (W^{\circ})^{\circ}\)，即 \(W\subseteq (W^{\circ})^{\circ}\)。另一方面，已知 \(\dim W^{\circ}=\dim V-\dim W\)，从而  
+\[
+\dim (W^{\circ})^{\circ}=\dim V-\dim W^{\circ}=\dim V-(\dim V-\dim W)=\dim W.
+\]  
+结合 \(W\subseteq (W^{\circ})^{\circ}\) 以及维数相等，得到  
+\[
+(W^{\circ})^{\circ}=W.
+\]  
+
+(b) 记商映射为 \(\pi:V\to V/W\)，\(\pi(v)=v+W\)。对任意 \(\varphi\in (V/W)^{*}\)，定义 \(\Phi(\varphi)=\varphi\circ \pi\in V^{*}\)。因为 \(\pi(w)=0\) 对所有 \(w\in W\)，故 \(\Phi(\varphi)\in W^{\circ}\)。这样得到线性映射  
+\[
+\Phi:(V/W)^{*}\to W^{\circ},\quad \Phi(\varphi)=\varphi\circ \pi.
+\]  
+若 \(\Phi(\varphi)=0\)，则 \(\varphi\circ \pi=0\)，而 \(\pi\) 是满射，故 \(\varphi=0\)，因此 \(\Phi\) 单射。再设 \(\psi\in W^{\circ}\)，定义 \(\bar\psi(v+W)=\psi(v)\)。因 \(\psi|_{W}=0\)，该定义良好且线性，于是 \(\bar\psi\in (V/W)^{*}\)，并且 \(\Phi(\bar\psi)=\psi\)。故 \(\Phi\) 满射。  
+
+综上，\(\Phi\) 是同构，因此  
+\[
+(V/W)^{*}\cong W^{\circ}.
+\]
+</p>
+  </details>
+</div>
+
+<div class="card">
+  <h3>题目 13</h3>
+  <p>Let \(A\) be a matrix of rank \(r>0\). Show that for any \(r\) linearly
+     independent rows and \(r\) linearly independent columns of \(A\), 
+     the corresponding \(r\times r\) minor (i.e., submatrix determinant) is 
+     nonzero.
+    </p>
+  <details>
+    <summary>展开解答</summary>
+    <p>Suppose \(A\) has rank \(r\). Choose \(r\) linearly independent 
+      rows (index set \(I\), \(|I|=r\)) and \(r\) linearly independent 
+      columns (index set \(J\), \(|J|=r\)). Let the corresponding submatrix
+       be \(A_{I,J}\). If \(\det(A_{I,J})=0\), then the columns 
+       of \(A_{I,J}\) are linearly dependent, so there exists a nonzero 
+       vector \(c\in\mathbb{F}^r\) such that \(A_{I,J}c=0\). Extend \(c\) to
+        a vector \(x\in\mathbb{F}^n\) by putting its entries in the 
+        coordinates indexed by \(J\) and zeros elsewhere. Then \((Ax)_I=0\).
+         Since the chosen \(r\) rows form a basis of the row space, this 
+         implies \(Ax=0\). But this contradicts \(\operatorname{rank}(A)=r\).
+         Therefore \(\det(A_{I,J})\neq 0\).</p>
+  </details>
+</div>
+
+<div class="card">
+  <h3>题目 14</h3>
+  <p>Let \(A,B\) be two symmetric, positive-definite (and thus invertible) 
+    matrices such that \(A\leq B\) (meaning \(B-A\) is positive semi-definite).
+   Prove that \(B^{-1}\leq A^{-1}\).</p>
+  <details>
+    <summary>展开解答</summary>
+    <p>Since \(A\) is positive-definite, define \(C=A^{-1/2}BA^{-1/2}\). Then
+\[
+C-I = A^{-1/2}(B-A)A^{-1/2}\succeq 0,
+\]
+so \(C\succeq I\). Thus every eigenvalue of \(C\) is at least 1, which implies \(C^{-1}\preceq I\). Note that
+\[
+C^{-1} = (A^{-1/2}BA^{-1/2})^{-1} = A^{1/2}B^{-1}A^{1/2}.
+\]
+Hence
+\[
+I - A^{1/2}B^{-1}A^{1/2}\succeq 0.
+\]
+Conjugating by \(A^{-1/2}\) gives
+\[
+A^{-1} - B^{-1} \succeq 0.
+\]
+Thus \(B^{-1}\leq A^{-1}\). 
+</p>
+  </details>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   </section>
+
+
+
+
 
 <audio id="bgm" autoplay loop >
   <source src="bgm.mp3" type="audio/mpeg">
