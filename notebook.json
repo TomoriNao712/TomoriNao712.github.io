@@ -1,0 +1,28 @@
+{
+  "profile": {
+    "name": "Tomori Nao",
+    "bio": "在数学里寻找秩序，在音乐里收藏心情。\n也喜欢游戏、动画，和偶尔出发的旅行。",
+    "specialty": "数学 · 几何分析",
+    "piano": "钢琴学习中",
+    "steamUrl": "https://steamcommunity.com/profiles/76561199444255437/",
+    "steamUpdated": "2026-10-18T12:50:00Z",
+    "songs": [],
+    "games": [
+      {
+        "name": "Street Fighter 6",
+        "hours": 222,
+        "appid": 1364780
+      },
+      {
+        "name": "Plants vs. Zombies: Game of the Year",
+        "hours": 0,
+        "appid": 3590
+      },
+      {
+        "name": "Slay the Spire",
+        "hours": 128.4
+      }
+    ]
+  },
+  "photos": []
+}
